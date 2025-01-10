@@ -1,0 +1,47 @@
+File 1: promtail-config.yml
+This is the configuration file for Promtail, a log shipper that collects, processes, and sends log data to Loki.
+
+Server:
+
+Listens for HTTP requests on port 9080.
+grpc_listen_port is disabled (0), meaning no gRPC services are exposed.
+Clients:
+
+Sends log data to Loki's /loki/api/v1/push endpoint at http://localhost:3100.
+Positions:
+
+Tracks the last-read position in log files to avoid re-reading logs after a restart.
+Stores these positions in /tmp/positions.yaml.
+Scrape Configurations:
+
+Defines how Promtail collects logs.
+Scrapes log files from Docker containers located at /var/lib/docker/containers/*/*.log.
+Labels logs with metadata (job: docker) for easier identification in Loki.
+
+------------------------------------------------------------------------------------------------
+
+File 2: docker-compose.yml
+This docker-compose.yml file is used to define and run the Promtail service in a Docker environment.
+
+Version:
+
+Uses Docker Compose file version 3.8.
+Services:
+
+Promtail:
+Image: Uses the latest Promtail Docker image from Grafana.
+Container Name: Names the container promtail for easy identification.
+Volumes:
+/var/lib/docker/containers:/var/lib/docker/containers:ro: Mounts the Docker container logs directory in read-only mode. Promtail scrapes logs from this location.
+/var/log:/var/log:ro: Mounts the system's /var/log directory in read-only mode to allow Promtail access to additional log files if needed.
+./promtail-config.yml:/etc/promtail/config.yml: Mounts the local Promtail configuration file to the container's configuration directory. This file specifies how Promtail processes and sends logs to Loki.
+Summary of Both Files Together
+Purpose:
+
+The Promtail configuration file (promtail-config.yml) defines how Promtail collects logs and sends them to Loki.
+The Docker Compose file (docker-compose.yml) sets up and runs the Promtail service with the necessary configurations and access to log sources.
+Workflow:
+
+Promtail reads logs from Docker containers and system logs (via mounted volumes).
+Promtail processes the logs as per the rules in promtail-config.yml.
+Promtail sends the logs to Loki for storage and querying.
