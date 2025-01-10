@@ -1,7 +1,10 @@
 # Central-logging-with-promtail-and-Loki
 Setup a simple solution to monitor logs for all running containers on docker.
+
 Centralized Docker Logging with Promtail and Loki
+
 Introduction
+
 In containerized environments, managing logs from multiple Docker containers can be challenging. By default, Docker uses a logging driver to capture logs from containers. These logs are typically stored locally or routed to external systems. The most common logging drivers include:
 
 json-file (default): Stores container logs as JSON files on the host.
