@@ -59,9 +59,21 @@ git clone https://github.com/Omar-Moh-Ibrahim/Central-logging-with-promtail-and-
 
 - Make sure that the default docker defualt logging driver is json.file by running the following command:
 
-```bash
-docker info | grep "Logging Driver" 
+
+```
+docker info | grep "Logging Driver"
+```
 
 The output should be like this:
+
+
+![Screenshot From 2025-01-10 18-41-01](https://github.com/user-attachments/assets/38566747-19c4-41a8-b056-17f24028b754)
+
+        
+
+
+
+
+
 
 
