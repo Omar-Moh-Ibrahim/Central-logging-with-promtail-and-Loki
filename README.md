@@ -243,7 +243,24 @@ At label filters, select label: filename then choose the container ID file as I 
 ![Screenshot From 2025-01-10 20-15-48](https://github.com/user-attachments/assets/a2e7df09-42c1-42c2-af07-8d1322ef3ec9)
 
 
+- Another method is by setup a configured Grafana dashboard to view logs collected in the Loki container image.
 
+- Import dashboard ID 13639 to your Grafana, select Loki to be your datasource.
+
+  Dashboard output:
+
+  ![Screenshot From 2025-01-10 20-18-17](https://github.com/user-attachments/assets/1b375eba-1c51-4733-9d4a-f8e615e342a6)
+
+Finally, we have successfully able to collect any running container to Promtail and send them for visualisation and anlaysis to Grafana.
+
+Acknowledgments:
+
+- Grafana Loki Documentation: https://grafana.com/docs/loki/latest/
+- Promtail Documentation : https://grafana.com/docs/loki/latest/send-data/promtail/
+
+If you have any enquires, please feel free to reach out.
+
+Thank you.
 
 
 
