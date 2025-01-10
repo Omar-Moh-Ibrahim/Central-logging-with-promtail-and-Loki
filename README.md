@@ -18,3 +18,15 @@ By default, Docker stores all all running contaienrs in the the path:/var/lib/do
 
 For more information on Docker Logging: https://docs.docker.com/engine/logging/configure/ 
 
+
+Why Use Promtail and Loki?
+
+Loki: A log aggregation system designed for storing and querying log data, similar to "Prometheus for logs."
+Promtail: A lightweight log shipper that collects logs from containers, files, or systemd/journald and sends them to Loki.
+Using Promtail and Loki together allows you to:
+
+- Collect logs from all running Docker containers.
+- Centralize and store logs efficiently in Loki.
+- Visualize and query logs seamlessly in Grafana.
+- This repository demonstrates how to configure Promtail and Loki to collect and aggregate logs from Docker containers, enabling real-time monitoring and debugging.
+
