@@ -46,6 +46,7 @@ Features:
 Requirements:
 - Docker (v20.10 or later).
 - Docker Compose (v2.0 or later).
+- Docker container images (Loki,Pomtail,Nginx,httpd)
 - Basic knowledge of Docker and Grafana.
 
 Setup and Usage:
@@ -69,7 +70,125 @@ The output should be like this:
 
 ![Screenshot From 2025-01-10 18-41-01](https://github.com/user-attachments/assets/38566747-19c4-41a8-b056-17f24028b754)
 
+
+- Go to directory /promtail and do the following steps:
+
+- create promtail configuration file:
+  ```
+  vim promtail-config.yml
+
+copy and paste the following contents:
+```
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+clients:
+  - url: http://192.168.124.100:3100/loki/api/v1/push
+
+positions:
+  filename: /tmp/positions.yaml
+
+scrape_configs:
+  - job_name: containers
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: docker
+          __path__: /var/lib/docker/containers/*/*.log
+```
+  For more explanation on this configuration, please read readme file inside this directory.
+
+
+Start promtail container image:
+
+```
+docker compose up -d
+```
+
+- Go directory /loki and do the following steps:
+
+
+- create promtail configuration file:
+
+  ```
+  vim Loki-config.yml
+  ```
+
+copy and paste the following contents:
+
+```
+auth_enabled: false
+
+server:
+  http_listen_port: 3100  # Port to listen for HTTP requests
+  http_listen_address: 0.0.0.0
+
+ingester:
+  lifecycler:
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
+  chunk_idle_period: 5m
+  chunk_retain_period: 30s
+  max_transfer_retries: 0
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: boltdb
+      object_store: filesystem
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h
+
+storage_config:
+  boltdb:
+    directory: /loki/index
+  filesystem:
+    directory: /loki/chunks
+
+chunk_store_config:
+  max_look_back_period: 0
+
+table_manager:
+  retention_deletes_enabled: true
+  retention_period: 720h
+
+limits_config:
+  enforce_metric_name: false
+  reject_old_samples: true
+  reject_old_samples_max_age: 168h
+
+```
+For more explanation on this configuration, please read readme file inside this directory.
+
+
+
+Start Loki container image:
+
+  ```
+  docker compose up -d
+
+  ```
+  - Go to directory /containers to start two web containers images:
+ 
+    ```
+    docker compose up -d
+    ```
         
+- Make sure all container are running successfully :
+
+```
+docker ps
+```
+
+The output should be like this:
+
+![Screenshot From 2025-01-10 19-21-32](https://github.com/user-attachments/assets/9f5435d4-79cd-4821-9200-a004f675c417)
 
 
 
