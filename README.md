@@ -65,4 +65,3 @@ docker info | grep "Logging Driver"
 The output should be like this:
 
 
-![Screenshot From 2025-01-10 18-41-01](https://github.com/user-attachments/assets/a2d3e4de-6818-49c4-a01a-9cbc14a3bb16)
