@@ -1,0 +1,21 @@
+File 1: loki-config.yml
+
+This is the configuration file for Loki, a log aggregation system. It defines how Loki operates, stores data, and manages log retention.
+
+Authentication: auth_enabled: false - No authentication is required to access Loki.
+Server: Configures Loki to listen for HTTP requests on port 3100 on all network interfaces.
+Ingestion: Configures the ingester's lifecycle and log chunk retention settings.
+Schema: Defines the schema for indexing logs, using boltdb for the index and filesystem for storing log chunks.
+Storage: Specifies where Loki stores indexes (/loki/index) and log chunks (/loki/chunks) locally on the filesystem.
+Retention: Keeps logs for 30 days (720 hours) and enables log deletion after the retention period.
+Limits: Rejects logs older than 7 days (168 hours) to ensure only recent logs are ingested.
+
+
+File 2: docker-compose.yml
+
+This file is used to define and run the Loki service as a container using Docker Compose.
+
+Image: Uses the latest Loki image from Docker Hub (grafana/loki:latest).
+Container Name: Names the Loki container as loki.
+Ports: Maps port 3100 from the container to the host, making Loki accessible.
+Volumes: Mounts the loki-config.yml file into the container to provide Loki with its configuration.
