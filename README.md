@@ -191,6 +191,57 @@ The output should be like this:
 ![Screenshot From 2025-01-10 19-21-32](https://github.com/user-attachments/assets/9f5435d4-79cd-4821-9200-a004f675c417)
 
 
+Now, we have 4 running containers. To test that all running containers send their logs to Promtail (in my case htttpd and nginx containers) run the following command:
+
+
+```
+curl http://192.168.124.100:8080
+```
+
+I sent a curl request to my nginx container to the exposed port of 8080 to test logging.
+
+
+Check that promtail recieved the logs :
+
+```
+docker logs promtail grep container ID
+docker logs promtail grep c67dfb75ec9d
+```
+
+Note: You will find container ID in the first column of docker ps output.
+
+The output should be like this:
+
+![Screenshot From 2025-01-10 19-44-22](https://github.com/user-attachments/assets/8f6b4c75-de27-45f5-baf9-16f94811aa18)
+
+
+Lets go to Grafana to check and visualize logs:
+
+- Open Grafana in your browser (http://<grafana-host>:3000).
+- Add Loki as a data source:
+- URL: http://<loki-host>:3100
+- Explore logs in the Explore section of Grafana.
+
+  The easiest way to check that Loki is receiving logs from promtail:
+  - Click on Grafana Menu.
+  - Press 'Explore'
+  - Choose Data source to be Loki:
+  - 
+  You will see screen like this:
+
+![Screenshot From 2025-01-10 20-11-44](https://github.com/user-attachments/assets/04b5177b-0c94-4649-8ffc-b967724f2ca9)
+
+
+At label filters, select label: filename then choose the container ID file as I discussed earlier.
+
+![Screenshot From 2025-01-10 20-14-24](https://github.com/user-attachments/assets/6bb418e9-d0b2-4c22-a22d-9ae3bf875d2e)
+
+
+![Screenshot From 2025-01-10 20-15-13](https://github.com/user-attachments/assets/da501cc4-552b-44aa-a32c-047f0dc83d81)
+
+
+![Screenshot From 2025-01-10 20-15-48](https://github.com/user-attachments/assets/a2e7df09-42c1-42c2-af07-8d1322ef3ec9)
+
 
 
 
