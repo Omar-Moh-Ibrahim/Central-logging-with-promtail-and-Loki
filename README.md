@@ -50,5 +50,18 @@ Requirements:
 
 Setup and Usage:
 
-1- Clone the Repository
+1- Clone the Repository:
 
+git clone https://github.com/Omar-Moh-Ibrahim/Central-logging-with-promtail-and-Loki.git 
+
+
+2- Once you downlaoded the repo in your computer, lets start:
+
+- Make sure that the default docker defualt logging driver is json.file by running the following command:
+
+```bash
+docker info | grep "Logging Driver" 
+
+The output should be like this:
+
+![Screenshot From 2025-01-10 18-41-01](https://github.com/user-attachments/assets/a2d3e4de-6818-49c4-a01a-9cbc14a3bb16)
