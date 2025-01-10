@@ -22,11 +22,33 @@ For more information on Docker Logging: https://docs.docker.com/engine/logging/c
 Why Use Promtail and Loki?
 
 Loki: A log aggregation system designed for storing and querying log data, similar to "Prometheus for logs."
+
 Promtail: A lightweight log shipper that collects logs from containers, files, or systemd/journald and sends them to Loki.
+
 Using Promtail and Loki together allows you to:
 
 - Collect logs from all running Docker containers.
 - Centralize and store logs efficiently in Loki.
 - Visualize and query logs seamlessly in Grafana.
 - This repository demonstrates how to configure Promtail and Loki to collect and aggregate logs from Docker containers, enabling real-time monitoring and debugging.
+
+Promtail and Loki Setup for Container Log Aggregation
+Overview
+
+This repository contains a Docker Compose setup for centralized log aggregation and visualization using Grafana Loki and Promtail. It is configured to collect logs from running Docker containers and send them to Loki, where they can be visualized and queried in Grafana.
+
+Features:
+- Centralized logging using Loki.
+- Log collection from Docker containers via Promtail.
+- Easy-to-deploy setup using Docker Compose.
+- Seamless integration with Grafana for log visualization.
+
+Requirements:
+- Docker (v20.10 or later).
+- Docker Compose (v2.0 or later).
+- Basic knowledge of Docker and Grafana.
+
+Setup and Usage:
+
+1- Clone the Repository
 
